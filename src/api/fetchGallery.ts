@@ -2,13 +2,8 @@ import type { Artwork } from "../api/artwork";
 import { ArtworkArraySchema } from "../api/artwork";
 
 export const getArtworkGalleryFromAPI = async (): Promise<Artwork[]> => {
-  const params = new URLSearchParams({
-    fields: "id,title,image_id,artist_title",
-    limit: "100",
-  });
-
   const response = await fetch(
-    `https://api.artic.edu/api/v1/artworks?${params.toString()}`,
+    "https://api.artic.edu/api/v1/artworks/search?fields=id,title,artist_title,image_id,place_of_origin",
   );
 
   if (!response.ok) {

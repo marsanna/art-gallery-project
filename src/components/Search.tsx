@@ -1,9 +1,7 @@
 function Search() {
   return (
     <>
-      <br />
-      --- Search ---
-      <br />
+      <div className="mb-5 text-center">--- Search ---</div>
     </>
   );
 }
