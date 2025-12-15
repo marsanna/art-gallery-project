@@ -1,5 +1,9 @@
 function ArtworkCardNotes() {
-  return <>ArtworkCardNotes</>;
+  return (
+    <>
+      <h2>ArtworkCardNotes</h2>
+    </>
+  );
 }
 
 export default ArtworkCardNotes;

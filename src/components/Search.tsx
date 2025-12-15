@@ -1,5 +1,11 @@
 function Search() {
-  return <>Search</>;
+  return (
+    <>
+      <br />
+      --- Search ---
+      <br />
+    </>
+  );
 }
 
 export default Search;

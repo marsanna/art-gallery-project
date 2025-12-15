@@ -1,5 +1,16 @@
+import Gallery from "../components/Gallery.tsx";
+import Search from "../components/Search.tsx";
+
 function Home() {
-  return <>Art Gallery</>;
+  return (
+    <>
+      <h1>Art Gallery</h1>
+      <Search />
+      ---
+      <Gallery />
+      ---
+    </>
+  );
 }
 
 export default Home;
