@@ -14,6 +14,7 @@ type GalleryContextType = {
   myArtworks: Artwork[] | [];
   addArtwork: (artwork: Artwork) => void;
   removeArtwork: (artwork: Artwork) => void;
+  updateArtwork: (artwork: Artwork) => void;
 };
 
 export const GalleryContext = createContext<GalleryContextType>({
@@ -21,6 +22,7 @@ export const GalleryContext = createContext<GalleryContextType>({
   myArtworks: [],
   addArtwork: () => {},
   removeArtwork: () => {},
+  updateArtwork: () => {},
 });
 
 type Props = {
@@ -45,10 +47,20 @@ const GalleryContextProvider = ({ children }: Props) => {
     setMyArtworks(updated);
   };
 
+  const updateArtwork = (artwork: Artwork) => {
+    const exists = myArtworks.some((item) => item.id === artwork.id);
+    if (exists) {
+      const updated = myArtworks.map((item) =>
+        item.id === artwork.id ? { ...item, ...artwork } : item,
+      );
+      writeStorage(updated);
+      setMyArtworks(updated);
+    }
+  };
+
   useEffect(() => {
     const loadArtworks = async () => {
       try {
-        //const data = await getArtworkGalleryFromAPI();
         const [data, myData] = await Promise.all([
           getArtworkGalleryFromAPI(),
           getArtworkGalleryFromStorage(),
@@ -66,7 +78,7 @@ const GalleryContextProvider = ({ children }: Props) => {
 
   return (
     <GalleryContext.Provider
-      value={{ artworks, myArtworks, addArtwork, removeArtwork }}
+      value={{ artworks, myArtworks, addArtwork, removeArtwork, updateArtwork }}
     >
       {children}
     </GalleryContext.Provider>
