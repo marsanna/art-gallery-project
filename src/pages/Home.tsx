@@ -1,13 +1,19 @@
-import Gallery from "../components/Gallery.tsx";
-import Search from "../components/Search.tsx";
+import { useContext } from "react";
+
+import ArtworkCard from "../components/ArtworkCard";
+import Search from "../components/Search";
+import { GalleryContext } from "../context/UseGalleryContext";
 
 function Home() {
+  const { artworks } = useContext(GalleryContext);
   return (
     <>
       <h1>Art Gallery</h1>
       <Search />
       ---
-      <Gallery />
+      {artworks?.map((artwork) => (
+        <ArtworkCard artwork={artwork} key={artwork.id} />
+      ))}
       ---
     </>
   );
