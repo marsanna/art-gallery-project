@@ -1,5 +1,9 @@
 function ArtworkCard() {
-  return <>ArtworkCard</>;
+  return (
+    <>
+      <h2>ArtworkCard</h2>
+    </>
+  );
 }
 
 export default ArtworkCard;
