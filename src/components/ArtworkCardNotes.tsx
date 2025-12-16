@@ -10,7 +10,8 @@ type ArtworkCardProps = {
 
 function ArtworkCardNotes({ artwork }: ArtworkCardProps) {
   const [notes, setNotes] = useState(artwork.notes || "");
-  const { error, setError, updateArtwork } = useContext(GalleryContext);
+  const { updateArtwork } = useContext(GalleryContext);
+  const [notesError, setNotesError] = useState<string | null>(null);
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setNotes(e.target.value);
@@ -21,11 +22,11 @@ function ArtworkCardNotes({ artwork }: ArtworkCardProps) {
     const updatedArtwork = { ...artwork, notes };
     const result = ArtworkSchema.safeParse(updatedArtwork);
     if (!result.success) {
-      setError("Notes are invalid: max. 15 characters");
+      setNotesError("Notes are invalid: max. 15 characters");
       return;
     }
     updateArtwork(result.data);
-    setError(null);
+    setNotesError(null);
   };
 
   return (
@@ -42,7 +43,7 @@ function ArtworkCardNotes({ artwork }: ArtworkCardProps) {
           className="resize-none rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           rows={4}
         />
-        {error && <div className="text-red-600">{error}</div>}
+        {notesError && <div className="text-red-600">{notesError}</div>}
         <button
           type="submit"
           className="cursor-pointer self-start rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-500"
