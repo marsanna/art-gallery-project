@@ -11,8 +11,8 @@ function ArtworkCardNotes({ artwork }: ArtworkCardProps) {
   const [notes, setNotes] = useState(artwork.notes || "");
   const { updateArtwork } = useContext(GalleryContext);
 
-  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
-    setNotes(event.target.value);
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    setNotes(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

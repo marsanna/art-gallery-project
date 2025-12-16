@@ -15,14 +15,18 @@ type GalleryContextType = {
   addArtwork: (artwork: Artwork) => void;
   removeArtwork: (artwork: Artwork) => void;
   updateArtwork: (artwork: Artwork) => void;
+  selectedArtwork: Artwork | null;
+  setSelectedArtwork: (artwork: Artwork | null) => void;
 };
 
 export const GalleryContext = createContext<GalleryContextType>({
   artworks: [],
   myArtworks: [],
+  selectedArtwork: null,
   addArtwork: () => {},
   removeArtwork: () => {},
   updateArtwork: () => {},
+  setSelectedArtwork: () => {},
 });
 
 type Props = {
@@ -32,6 +36,7 @@ type Props = {
 const GalleryContextProvider = ({ children }: Props) => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [myArtworks, setMyArtworks] = useState<Artwork[]>(loadStorage());
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
   const addArtwork = (artwork: Artwork) => {
     if (!myArtworks.some((item) => item.id === artwork.id)) {
@@ -55,6 +60,9 @@ const GalleryContextProvider = ({ children }: Props) => {
       );
       writeStorage(updated);
       setMyArtworks(updated);
+      if (selectedArtwork?.id === artwork.id) {
+        setSelectedArtwork(null);
+      }
     }
   };
 
@@ -67,7 +75,6 @@ const GalleryContextProvider = ({ children }: Props) => {
         ]);
         setArtworks(data);
         setMyArtworks(myData);
-        console.log(data);
       } catch (error) {
         console.error("Could not load artworks:", error);
       }
@@ -78,7 +85,15 @@ const GalleryContextProvider = ({ children }: Props) => {
 
   return (
     <GalleryContext.Provider
-      value={{ artworks, myArtworks, addArtwork, removeArtwork, updateArtwork }}
+      value={{
+        artworks,
+        myArtworks,
+        selectedArtwork,
+        setSelectedArtwork,
+        addArtwork,
+        removeArtwork,
+        updateArtwork,
+      }}
     >
       {children}
     </GalleryContext.Provider>
