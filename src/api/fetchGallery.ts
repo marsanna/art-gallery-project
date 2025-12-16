@@ -4,7 +4,7 @@ import { ArtworkArraySchema } from "../api/artwork";
 export const getArtworkGalleryFromAPI = async (): Promise<Artwork[]> => {
   const url = "https://api.artic.edu/api/v1/artworks/search";
   const body = {
-    qquery: {
+    query: {
       bool: {
         must: [
           { exists: { field: "image_id" } },
