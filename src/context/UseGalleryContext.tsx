@@ -11,7 +11,9 @@ import {
 
 type GalleryContextType = {
   artworks: Artwork[] | [];
+  setArtworks: React.Dispatch<React.SetStateAction<Artwork[]>>;
   myArtworks: Artwork[] | [];
+  setMyArtworks: React.Dispatch<React.SetStateAction<Artwork[]>>;
   addArtwork: (artwork: Artwork) => void;
   removeArtwork: (artwork: Artwork) => void;
   updateArtwork: (artwork: Artwork) => void;
@@ -23,7 +25,9 @@ type GalleryContextType = {
 
 export const GalleryContext = createContext<GalleryContextType>({
   artworks: [],
+  setArtworks: () => {},
   myArtworks: [],
+  setMyArtworks: () => {},
   selectedArtwork: null,
   addArtwork: () => {},
   removeArtwork: () => {},
@@ -92,7 +96,9 @@ const GalleryContextProvider = ({ children }: Props) => {
     <GalleryContext.Provider
       value={{
         artworks,
+        setArtworks,
         myArtworks,
+        setMyArtworks,
         error,
         setError,
         selectedArtwork,
