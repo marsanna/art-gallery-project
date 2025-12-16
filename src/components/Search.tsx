@@ -48,6 +48,16 @@ function Search() {
     return () => clearTimeout(timeout);
   }, [values.picture, values.painter, setArtworks]);
 
+  if (error) {
+    return <div className="my-20 text-center text-red-600">{error}</div>;
+  }
+
+  if (loading) {
+    return (
+      <div className="my-20 text-center text-green-600">Loading data...</div>
+    );
+  }
+
   return (
     <>
       <form className="mx-auto my-6 w-full max-w-2xl">
