@@ -65,7 +65,7 @@ function ArtworkCard({
                     onClick={() => onShowNotes(artwork)}
                     className="cursor-pointer rounded bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-500"
                   >
-                    Add notes
+                    {artwork.notes ? "Edit notes" : "Add notes"}
                   </button>
                 )}
               </>
