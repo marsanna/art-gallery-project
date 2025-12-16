@@ -1,3 +1,5 @@
+import { z } from "zod/v4";
+
 import type { Artwork } from "../api/artwork";
 import { ArtworkArraySchema } from "../api/artwork";
 
@@ -40,7 +42,7 @@ export const getArtworkGalleryFromAPI = async (): Promise<Artwork[]> => {
   const parsed = ArtworkArraySchema.safeParse(dataFromAPI.data);
 
   if (!parsed.success) {
-    throw new Error(parsed.error.message);
+    throw new Error(z.prettifyError(parsed.error));
   }
 
   return parsed.data;

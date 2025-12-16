@@ -5,8 +5,12 @@ import ArtworkCardNotes from "../components/ArtworkCardNotes";
 import { GalleryContext } from "../context/UseGalleryContext";
 
 function MyGallery() {
-  const { myArtworks, selectedArtwork, setSelectedArtwork } =
+  const { error, myArtworks, selectedArtwork, setSelectedArtwork } =
     useContext(GalleryContext);
+
+  if (error) {
+    return <div className="my-20 text-center text-red-600">{error}</div>;
+  }
 
   return (
     <>
