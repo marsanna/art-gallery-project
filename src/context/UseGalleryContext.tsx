@@ -10,6 +10,13 @@ import {
 } from "../api/storageGallery.ts";
 
 type GalleryContextType = {
+  page: number;
+  limit: number;
+  setPage: (page: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  totalPages: number;
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>;
   artworks: Artwork[] | [];
   setArtworks: React.Dispatch<React.SetStateAction<Artwork[]>>;
   myArtworks: Artwork[] | [];
@@ -25,6 +32,13 @@ type GalleryContextType = {
 
 export const GalleryContext = createContext<GalleryContextType>({
   artworks: [],
+  page: 1,
+  limit: 10,
+  setPage: () => {},
+  nextPage: () => {},
+  prevPage: () => {},
+  totalPages: 1,
+  setTotalPages: () => {},
   setArtworks: () => {},
   myArtworks: [],
   setMyArtworks: () => {},
@@ -46,6 +60,9 @@ const GalleryContextProvider = ({ children }: Props) => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [myArtworks, setMyArtworks] = useState<Artwork[]>(loadStorage());
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+  const limit = 60;
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const addArtwork = (artwork: Artwork) => {
     if (!myArtworks.some((item) => item.id === artwork.id)) {
@@ -75,26 +92,36 @@ const GalleryContextProvider = ({ children }: Props) => {
     }
   };
 
+  const nextPage = () => setPage((p) => p + 1);
+  const prevPage = () => setPage((p) => p - 1);
+
   useEffect(() => {
     const loadArtworks = async () => {
       try {
-        const [data, myData] = await Promise.all([
-          getArtworkGalleryFromAPI(),
+        const [myData, apiData] = await Promise.all([
           getArtworkGalleryFromStorage(),
+          getArtworkGalleryFromAPI(page, limit),
         ]);
-        setArtworks(data);
         setMyArtworks(myData);
+        setArtworks(apiData.data);
+        setTotalPages(apiData.totalPages);
       } catch (error) {
-        console.error("Could not load artworks:", error);
         setError(`Could not load artworks: ${error}`);
       }
     };
     loadArtworks();
-  }, []);
+  }, [page]);
 
   return (
     <GalleryContext.Provider
       value={{
+        page,
+        limit,
+        setPage,
+        nextPage,
+        prevPage,
+        totalPages,
+        setTotalPages,
         artworks,
         setArtworks,
         myArtworks,
