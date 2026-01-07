@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
 import { getArtworkGalleryFromAPI } from "../api/fetchGallery";
-import { searchArtworks } from "../api/searchArtworks";
 import { GalleryContext } from "../context/UseGalleryContext";
 
 type SearchValues = {
@@ -10,7 +9,8 @@ type SearchValues = {
 };
 
 function Search() {
-  const { setArtworks } = useContext(GalleryContext);
+  const { page, limit, setPage, setTotalPages, setArtworks } =
+    useContext(GalleryContext);
   const [values, setValues] = useState<SearchValues>({
     picture: "",
     painter: "",
@@ -22,31 +22,35 @@ function Search() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
+    setPage(1);
   };
 
   useEffect(() => {
     const timeout = setTimeout(async () => {
-      if (!values.picture && !values.painter) {
-        const data = await getArtworkGalleryFromAPI();
-        setArtworks(data);
-        return;
-      }
-
-      setLoading(true);
       setError(null);
-
+      setLoading(true);
       try {
-        const data = await searchArtworks(values.picture, values.painter);
-        setArtworks(data);
+        let apiData;
+        if (!values.picture && !values.painter) {
+          apiData = await getArtworkGalleryFromAPI(page, limit);
+        } else {
+          apiData = await getArtworkGalleryFromAPI(
+            page,
+            limit,
+            values.picture || undefined,
+            values.painter || undefined,
+          );
+        }
+        setArtworks(apiData.data);
+        setTotalPages(apiData.totalPages);
       } catch (err) {
         setError((err as Error).message);
       } finally {
         setLoading(false);
       }
     }, 400);
-
     return () => clearTimeout(timeout);
-  }, [values.picture, values.painter, setArtworks]);
+  }, [page, limit, values.picture, values.painter, setArtworks, setTotalPages]);
 
   if (error) {
     return <div className="my-20 text-center text-red-600">{error}</div>;

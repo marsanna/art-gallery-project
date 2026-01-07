@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import ArtworkCard from "../components/ArtworkCard";
+import ArtworkPages from "../components/ArtworkPages";
 import Search from "../components/Search";
 import { GalleryContext } from "../context/UseGalleryContext";
 
@@ -17,6 +18,7 @@ function Home() {
         {error}
         <h1 className="my-6 text-center text-3xl font-bold">My Gallery</h1>
         <Search />
+        <ArtworkPages />
         <div className="grid grid-cols-1 gap-6 px-4 sm:grid-cols-2 md:grid-cols-3 md:px-8">
           {artworks?.map((artwork) => (
             <ArtworkCard
