@@ -33,7 +33,7 @@ function ArtworkCard({
             <img
               src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
               alt={artwork.image_id ? artwork.title : "No image available"}
-              className="h-full w-full object-cover"
+              className="image-preview h-full w-full object-cover"
             />
           ) : (
             <div className="text-gray-500">No image available</div>
