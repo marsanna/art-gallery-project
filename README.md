@@ -29,7 +29,7 @@ It showcases artworks using data from the Art Institute of Chicago API.
 
 ## 👀 Project Preview
 
-![Art Gallery Preview](/assets/project-preview.png)
+![Art Gallery Preview](src/assets/project-preview.png)
 
 ---
 
