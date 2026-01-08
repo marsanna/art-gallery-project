@@ -9,7 +9,6 @@ export const getArtworkGalleryFromAPI = async (
   picture?: string,
   painter?: string,
 ): Promise<{ data: Artwork[]; totalPages: number }> => {
-  console.log(painter);
   const url = "https://api.artic.edu/api/v1/artworks/search";
   const must: Record<string, unknown>[] = [
     { exists: { field: "image_id" } },
