@@ -50,7 +50,7 @@ function ArtworkCard({
                 onClick={() => handleAddClick(artwork)}
                 className="cursor-pointer rounded bg-green-600 px-2 py-1 text-white transition hover:bg-green-500"
               >
-                Add to gallery
+                Add to my gallery
               </button>
             ) : (
               <>
