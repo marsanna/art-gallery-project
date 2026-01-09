@@ -48,7 +48,7 @@ function ArtworkCardNotes({ artwork }: ArtworkCardProps) {
           type="submit"
           className="cursor-pointer self-start rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-500"
         >
-          Add Notes
+          Add notes
         </button>
       </form>
     </>

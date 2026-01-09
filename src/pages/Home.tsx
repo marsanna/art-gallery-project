@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <>
-      <div className="relative my-15 flex min-h-screen flex-col">
+      <div className="relative mt-20 mb-10">
         {error}
         <h1 className="my-6 text-center text-3xl font-bold">Art Gallery</h1>
         <Search />

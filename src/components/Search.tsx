@@ -64,7 +64,7 @@ function Search() {
 
   return (
     <>
-      <form className="mx-auto my-6 w-full max-w-2xl">
+      <form className="mx-auto my-6 w-full max-w-2xl px-4">
         <div className="flex flex-col gap-6 md:flex-row">
           <input
             type="text"

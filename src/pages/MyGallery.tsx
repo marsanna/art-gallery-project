@@ -15,7 +15,7 @@ function MyGallery() {
   return (
     <>
       {myArtworks?.length > 0 ? (
-        <div className="relative my-15 flex min-h-screen flex-col">
+        <div className="relative mt-20 mb-10">
           <h1 className="my-6 text-center text-3xl font-bold">My Gallery</h1>
           <div className="grid grid-cols-1 gap-6 px-4 sm:grid-cols-2 md:grid-cols-3 md:px-8">
             {myArtworks?.map((artwork) => (
@@ -42,10 +42,12 @@ function MyGallery() {
           )}
         </div>
       ) : (
-        <div className="relative my-15 flex min-h-screen flex-col">
+        <div className="relative mt-20 mb-10">
           <h1 className="my-6 text-center text-3xl font-bold">Your Gallery</h1>
           <p className="text-center">
-            Your gallery is currently empty. Discover and save some pictures.
+            Your gallery is currently empty.
+            <br />
+            Discover and save some pictures.
           </p>
         </div>
       )}
